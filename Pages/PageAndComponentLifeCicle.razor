@@ -1,0 +1,83 @@
+@page "/PageAndComponentLifeCicle/{pageName}"
+
+@using test_Blazor_ebook1.Pages.Components
+@using System.Threading;
+@using System.Threading.Tasks;
+
+<h2>Page and Component Life Cicle</h2>
+
+<div>
+    <p>Page Text</p>
+    <h5>@Text</h5>
+    <h5>Parameter [@PageName]</h5>
+</div>
+
+<div>
+    <p>Component Text</p>
+    <ComponentLifeCicle Title="This is a component Text passed as parameter"
+                        Name="@PageName"></ComponentLifeCicle>
+</div>
+
+<div>
+    <p>Cascading Parameter</p>
+    <CascadingValue Value="@Title">
+        <ComponentCascadeParameter></ComponentCascadeParameter>
+    </CascadingValue>
+</div>
+
+<div>
+    <p>Settings element attributes from dictionary</p>
+    <ComponentSettingAttributes></ComponentSettingAttributes>
+</div>
+
+
+
+@code {
+
+    private string Title { get; set; } = $"Title from parent. {nameof(PageAndComponentLifeCicle)}";
+
+    [Parameter]
+    public string PageName { get; set; } = "Should be rewrited by parameter";
+
+    public string Text { get; set; } = "Page Life Cicle. PageAndComponentLifeCicle.razor";
+    private string _className = nameof(PageAndComponentLifeCicle);
+
+    protected override void OnInitialized()
+    {
+        Console.WriteLine($"{_className}.{nameof(OnInitialized)}()");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine($"{_className}.{nameof(OnInitializedAsync)}()");
+    }
+
+    protected override void OnParametersSet()
+    {
+        Console.WriteLine($"{_className}.{nameof(OnParametersSet)}()");
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        Console.WriteLine($"{_className}.{nameof(OnParametersSetAsync)}()");
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        Console.WriteLine($"{_className}.{nameof(OnAfterRender)}(firstRender = {firstRender})");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        Console.WriteLine($"{_className}.{nameof(OnAfterRenderAsync)}(firstRender = {firstRender})");
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        Console.WriteLine($"{_className}.{nameof(SetParametersAsync)}(parameters = {parameters.ToString()})");
+
+        //Write your code to modify Parameters
+        await base.SetParametersAsync(parameters);
+    }
+
+}
