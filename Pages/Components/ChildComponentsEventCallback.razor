@@ -1,0 +1,9 @@
+<button class="btn btn-primary" 
+        @onclick="OnButtonClick">Click Me(child component)</button>
+
+@code {
+
+    [Parameter]
+    public EventCallback OnButtonClick { get; set; }
+        
+}
