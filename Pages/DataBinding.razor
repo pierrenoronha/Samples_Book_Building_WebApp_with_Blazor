@@ -1,0 +1,69 @@
+@page "/databinding1"
+
+<p><b>Data binding example</b></p>
+
+<h4>Two-way databinding</h4>
+First name: <input type="text" @bind="FirstName">
+
+@* Another way to create DataBinding *@
+Last name: <input type="text" value="@LastName" @onchange="@((ChangeEventArgs __e) => LastName = __e.Value.ToString())" />
+<br/>
+
+Have you visited Brazil? <input type="checkbox" @bind="IsVisited">
+<br/>
+
+<h4>Databinding on enter input</h4>
+Full Name: <input type="text" @bind-value="FullName" @bind-value:event="oninput" />
+<br/>
+
+<h4>Databinding with Culture</h4>
+Fractional Value: <input type="text" @bind-value="FractionalValue" @bind-value:culture="culture" />
+<br/>
+
+<h4>Databinding with String Format</h4>
+Fractional Value: <input type="text" @bind-value="BirthDate" @bind-value:format="dd-MM-yyyy" />
+<br/>
+
+<h4>Databinding with Event Binding</h4>
+Counter: <input type="button" class="btn btn-primary" value="Increment Count" 
+          @onclick="IncrementCount"/>
+        <button class="btn btn-secondary" @onclick="@(e => counter++)">Increment Count</button>
+        <br/>
+
+Current count: @counter
+<br/>
+
+
+
+
+<p><b>Summary</b></p>
+You have entered: @FirstName @LastName
+<br/>
+
+Your fullname: @FullName
+<br/>
+
+Visited Brazil: @(IsVisited ? "Yes" : "No")
+<br/>
+
+BirthDate: @BirthDate
+<br/>
+
+@code {
+
+    public System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("pt-BR");
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string FullName { get; set; }
+    public bool IsVisited { get; set; }
+    public double FractionalValue { get; set; } = 13.1415;
+    public DateTime BirthDate { get; set; } = new DateTime(1981, 04, 13);
+    
+    public int counter { get; set; } = 0;
+    
+    public void IncrementCount()
+    {
+        counter++;
+    }
+    
+}

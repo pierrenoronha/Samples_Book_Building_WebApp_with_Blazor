@@ -1,0 +1,25 @@
+@using test_Blazor_ebook1.Pages.Components
+
+@page "/PageComponentsEventCallback"
+
+<h3>Page Components Event Callback</h3>
+
+<h4>Handle Child Component event in parent Component</h4>
+<br/>
+
+<ChildComponentsEventCallback OnButtonClick="ShowMessage"></ChildComponentsEventCallback>
+<br/>
+
+<p>Message: <em>@Message</em></p>
+
+@code {
+
+    private string Message { get; set; }
+    
+    
+    private void ShowMessage()
+    {
+        Message = $"Event: child component button click!!!";
+    }
+
+}
