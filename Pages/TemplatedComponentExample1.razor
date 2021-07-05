@@ -1,0 +1,39 @@
+@page "/tempExample1"
+
+@using Samples_Book_Building_WebApp_with_Blazor.Data
+@using test_Blazor_ebook1.Pages.Components
+
+<h3>Templated Component Example 1</h3>
+
+@if(Authors == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <GridViewTemplate Items="@Authors" TItem="Author">
+        <Header>
+            <th style="width: 350px;">ID</th>
+            <th style="width: 150px;">First Name</th>
+            <th style="width: 150px;">Last Name</th>
+        </Header>
+        <Row>
+            <td>@context.Id</td>
+            <td>@context.FirstName</td>
+            <td>@context.LastName</td>
+        </Row>
+        <Footer>
+            <td colspan="3">@Authors.Count()</td>
+        </Footer>
+
+    </GridViewTemplate>
+}
+
+@code {
+    IReadOnlyList<Author> Authors = new Author[]{
+        new Author{FirstName = "PIERRE", LastName = "Noronha"},
+        new Author{FirstName = "KAWÃ", LastName = "Noronha"},
+        new Author{FirstName = "TAIANE", LastName = "Noronha"}
+    };
+
+}
