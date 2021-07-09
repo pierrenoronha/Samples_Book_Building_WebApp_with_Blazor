@@ -24,17 +24,17 @@ namespace test_Blazor_ebook1
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    var config = new ConfigurationBuilder()
-                                     .SetBasePath(Directory.GetCurrentDirectory())
-                                     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                                     .AddCommandLine(args)
-                                     //.AddEnvironmentVariables(prefix: "MyCustomPrefix_");
-                                     .Build();
-                    var baseUrl = config.GetSection("BlazorBaseUrl");
+                    // var config = new ConfigurationBuilder()
+                    //                  .SetBasePath(Directory.GetCurrentDirectory())
+                    //                  .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                    //                  .AddCommandLine(args)
+                    //                  //.AddEnvironmentVariables(prefix: "MyCustomPrefix_");
+                    //                  .Build();
+                    // var baseUrl = config.GetSection("BlazorBaseUrl");
                     
                     webBuilder
-                        .UseStartup<Startup>()
-                        .UseUrls(baseUrl.Value);
+                        .UseStartup<Startup>();
+                        //.UseUrls(baseUrl.Value);
                 })
                 .ConfigureServices((hostBuilderContext, services) => {
                     services.AddHttpClient<IAuthorService, AuthorService>(client =>

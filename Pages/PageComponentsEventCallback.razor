@@ -7,19 +7,41 @@
 <h4>Handle Child Component event in parent Component</h4>
 <br/>
 
-<ChildComponentsEventCallback OnButtonClick="ShowMessage"></ChildComponentsEventCallback>
+
+<CascadingValue Value="@Message" >
+    <ChildComponentsEventCallback 
+        OnButtonClick="ShowMessage"
+        OnInputKeydown="OnKeyPressed"
+    >
+    </ChildComponentsEventCallback>
+</CascadingValue>
+
 <br/>
 
-<p>Message: <em>@Message</em></p>
+<p>Message Page: <em>@Message</em></p>
+
+<button class="btn btn-secundary" 
+        @onclick="OnPageButtonClick">Click Me(Page component)</button>
 
 @code {
 
+    //Essa propridade é passada para o componente ChildComponentsEventCallback 
+    //como CascadingValue ou seja, ele recebe uma referência dela
+    //qualquer alteração em seu valor, detro ou fora do componente irá atualizar o seu valor
     private string Message { get; set; }
-    
     
     private void ShowMessage()
     {
         Message = $"Event: child component button click!!!";
     }
 
+    private void OnKeyPressed(KeyboardEventArgs e)
+    {
+        Message = $"You Pressed: {e.Key} - Event Type: {e.Type}";
+    }
+
+    private void OnPageButtonClick()
+    {
+        Message = $"Event: page component button click!!!";
+    }
 }

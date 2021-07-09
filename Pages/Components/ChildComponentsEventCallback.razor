@@ -1,9 +1,39 @@
+@*
+* https://docs.microsoft.com/pt-br/aspnet/core/blazor/components/event-handling?view=aspnetcore-5.0
+
+*@
+
 <button class="btn btn-primary" 
         @onclick="OnButtonClick">Click Me(child component)</button>
 
+<input type="text" class="input"
+        placeholder="Digite algo aqui..."
+        @onkeydown="OnInputKeydown" 
+        >
+<input type="text" 
+        @onkeypress="KeyboardEventHandler"
+        @onkeydown="KeyboardEventHandler"
+        @onkeyup="KeyboardEventHandler"/>
+
+<h4>@KeyPressed </h4>
+<h4>@EventInfo</h4>
+
 @code {
+    string KeyPressed = "";
+    string EventInfo = "";
+
+    [CascadingParameter]
+    private string Message { get; set; }
 
     [Parameter]
     public EventCallback OnButtonClick { get; set; }
-        
+
+    [Parameter]
+    public EventCallback<KeyboardEventArgs> OnInputKeydown { get; set; }
+
+    private void KeyboardEventHandler(KeyboardEventArgs args)
+    {
+        KeyPressed = "Key Pressed is " + args.Key;
+        EventInfo = "Event Type " + args.Type;
+    }
 }
